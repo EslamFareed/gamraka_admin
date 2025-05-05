@@ -7,6 +7,7 @@ import 'package:gamraka_admin/screens/categories/categories_screen.dart';
 import 'package:gamraka_admin/screens/countries/countries_screen.dart';
 import 'package:gamraka_admin/screens/routes/routes_screen.dart';
 import 'package:gamraka_admin/screens/sliders/sliders_screen.dart';
+import 'package:gamraka_admin/screens/splash/splash_screen.dart';
 import 'package:gamraka_admin/screens/users/users_screen.dart';
 
 import '../admins/admins_screen.dart';
@@ -88,6 +89,22 @@ class DashboardScreen extends StatelessWidget {
               title: Text("Categories"),
               leading: Icon(Icons.category),
               trailing: Icon(Icons.arrow_forward_ios, size: 15),
+            ),
+          ),
+          Card(
+            child: ListTile(
+              tileColor: Colors.red.withValues(alpha: .3),
+              onTap: () async {
+                await SharedHelper.prefs.clear();
+                if (context.mounted) context.goOffAll(SplashScreen());
+              },
+              title: Text("Logout", style: TextStyle(color: Colors.red)),
+              leading: Icon(Icons.logout, color: Colors.red),
+              trailing: Icon(
+                Icons.arrow_forward_ios,
+                size: 15,
+                color: Colors.red,
+              ),
             ),
           ),
         ],
