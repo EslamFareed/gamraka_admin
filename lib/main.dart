@@ -1,5 +1,6 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:gamraka_admin/screens/countries/cubit/countries_cubit.dart';
 
 import 'firebase_options.dart';
 import 'core/utils/app_colors.dart';
@@ -34,6 +35,7 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (context) => UsersCubit()),
         BlocProvider(create: (context) => SlidersCubit()),
         BlocProvider(create: (context) => AsksCubit()),
+        BlocProvider(create: (context) => CountriesCubit()),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,

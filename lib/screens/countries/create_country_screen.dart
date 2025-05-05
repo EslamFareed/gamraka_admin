@@ -2,21 +2,22 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gamraka_admin/core/utils/app_colors.dart';
 import 'package:gamraka_admin/core/utils/app_functions.dart';
-import 'package:gamraka_admin/screens/admins/cubit/admins_cubit.dart';
+import 'package:gamraka_admin/screens/countries/cubit/countries_cubit.dart';
+// import 'package:gamraka_admin/screens/admins/cubit/admins_cubit.dart';
 import 'package:gamraka_admin/screens/dashboard/dashboard_screen.dart';
 
-class CreateAdminScreen extends StatelessWidget {
-  CreateAdminScreen({super.key});
+class CreateCountryScreen extends StatelessWidget {
+  CreateCountryScreen({super.key});
 
-  final emailController = TextEditingController();
-  final passwordController = TextEditingController();
+  final nameController = TextEditingController();
+  final addressController = TextEditingController();
 
   final globalKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("Create Admin")),
+      appBar: AppBar(title: Text("Create Country")),
       body: Padding(
         padding: const EdgeInsets.all(20),
         child: SingleChildScrollView(
@@ -25,51 +26,67 @@ class CreateAdminScreen extends StatelessWidget {
             child: Column(
               children: [
                 SizedBox(height: 50),
+                //! ------------------- Country Name ------------------!
+                Row(children: [Text("Country Name")]),
+                SizedBox(height: 5),
                 TextFormField(
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return "Email must be not empty";
-                    }
-                    return null;
-                  },
-                  controller: emailController,
+                  controller: nameController,
                   decoration: InputDecoration(
-                    labelText: "Email",
-                    prefixIcon: Icon(Icons.email),
+                    hintText: "",
+                    filled: true,
+                    fillColor: Colors.grey.shade200,
                     border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(16),
+                      borderRadius: BorderRadius.circular(10),
+                      borderSide: BorderSide.none,
                     ),
                   ),
-                ),
-                SizedBox(height: 20),
-                TextFormField(
                   validator: (value) {
                     if (value == null || value.isEmpty) {
-                      return "Password must be not empty";
+                      return "Country Name is required";
                     }
+
                     return null;
                   },
-                  controller: passwordController,
+                ),
+                SizedBox(height: context.screenHeight * .05),
+                //! ------------------- Address ------------------!
+                Row(children: [Text("Address")]),
+                SizedBox(height: 5),
+                TextFormField(
+                  controller: addressController,
                   decoration: InputDecoration(
-                    labelText: "Password",
-                    prefixIcon: Icon(Icons.security),
+                    hintText: "",
+                    filled: true,
+                    fillColor: Colors.grey.shade200,
                     border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(16),
+                      borderRadius: BorderRadius.circular(10),
+                      borderSide: BorderSide.none,
                     ),
                   ),
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return "Address is required";
+                    }
+
+                    return null;
+                  },
                 ),
+                SizedBox(height: context.screenHeight * .05),
+
                 SizedBox(height: 50),
-                BlocConsumer<AdminsCubit, AdminsState>(
+                BlocConsumer<CountriesCubit, CountriesState>(
                   listener: (context, state) {
-                    if (state is ErrorAdminsState) {
-                      context.showErrorSnack("Error, Please login again");
-                    } else if (state is SuccessAdminsState) {
+                    if (state is ErrorCountriesState) {
+                      context.showErrorSnack(
+                        "Error, or this country already exist",
+                      );
+                    } else if (state is SuccessCountriesState) {
                       context.showSuccessSnack("Created Successfully");
                       context.goOffAll(DashboardScreen());
                     }
                   },
                   builder: (context, state) {
-                    return state is LoadingAdminsState
+                    return state is LoadingCountriesState
                         ? Center(child: CircularProgressIndicator())
                         : SizedBox(
                           width: double.infinity,
@@ -82,14 +99,14 @@ class CreateAdminScreen extends StatelessWidget {
                             ),
                             onPressed: () {
                               if (globalKey.currentState?.validate() ?? false) {
-                                AdminsCubit.get(context).createAdmin(
-                                  emailController.text,
-                                  passwordController.text,
+                                CountriesCubit.get(context).createCountry(
+                                  nameController.text,
+                                  addressController.text,
                                 );
                               }
                             },
                             child: Text(
-                              "Create Admin",
+                              "Create New Country",
                               style: TextStyle(color: Colors.white),
                             ),
                           ),

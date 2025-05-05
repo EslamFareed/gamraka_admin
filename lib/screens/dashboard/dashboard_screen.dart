@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:gamraka_admin/core/utils/app_functions.dart';
+import 'package:gamraka_admin/core/utils/shared_helper.dart';
 
 import 'package:gamraka_admin/screens/asks/asks_screen.dart';
-import 'package:gamraka_admin/screens/login/cubit/login_cubit.dart';
+import 'package:gamraka_admin/screens/countries/countries_screen.dart';
 import 'package:gamraka_admin/screens/sliders/sliders_screen.dart';
 import 'package:gamraka_admin/screens/users/users_screen.dart';
 
@@ -14,9 +15,7 @@ class DashboardScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text("Welcome, ${LoginCubit.get(context).adminData?["email"]}"),
-      ),
+      appBar: AppBar(title: Text("Welcome, ${SharedHelper.getAdminEmail()}")),
       body: ListView(
         children: [
           Card(
@@ -56,6 +55,16 @@ class DashboardScreen extends StatelessWidget {
               },
               title: Text("Sliders"),
               leading: Icon(Icons.image),
+              trailing: Icon(Icons.arrow_forward_ios, size: 15),
+            ),
+          ),
+          Card(
+            child: ListTile(
+              onTap: () {
+                context.goToPage(CountriesScreen());
+              },
+              title: Text("Countries"),
+              leading: Icon(Icons.location_city),
               trailing: Icon(Icons.arrow_forward_ios, size: 15),
             ),
           ),

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
 import 'package:gamraka_admin/core/utils/app_functions.dart';
+import 'package:gamraka_admin/core/utils/shared_helper.dart';
+import 'package:gamraka_admin/screens/dashboard/dashboard_screen.dart';
 
 import '../login/login_screen.dart';
 
@@ -11,7 +13,9 @@ class SplashScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     Future.delayed(const Duration(seconds: 3), () {
       if (context.mounted) {
-        context.goOffAll(LoginScreen());
+        context.goOffAll(
+          SharedHelper.isLogin() ? DashboardScreen() : LoginScreen(),
+        );
       }
     });
 

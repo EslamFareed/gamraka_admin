@@ -21,11 +21,12 @@ class SlidersCubit extends Cubit<SlidersState> {
     emit(LoadingSlidersState());
     try {
       firestore.collection("slider").snapshots().listen((data) {
-        sliders = data.docs.map((e) {
-          var d = e.data();
-          d["id"] = e.id;
-          return d;
-        }).toList();
+        sliders =
+            data.docs.map((e) {
+              var d = e.data();
+              d["id"] = e.id;
+              return d;
+            }).toList();
         emit(SuccessSlidersState());
       });
     } catch (e) {
@@ -37,6 +38,7 @@ class SlidersCubit extends Cubit<SlidersState> {
     emit(LoadingSlidersState());
     try {
       await firestore.collection("slider").doc(item["id"]).delete();
+
       emit(SuccessSlidersState());
     } catch (e) {
       emit(ErrorSlidersState());

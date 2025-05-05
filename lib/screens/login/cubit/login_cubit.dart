@@ -2,6 +2,7 @@ import 'package:bloc/bloc.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:gamraka_admin/core/utils/shared_helper.dart';
 
 import 'package:meta/meta.dart';
 
@@ -15,7 +16,7 @@ class LoginCubit extends Cubit<LoginState> {
   final auth = FirebaseAuth.instance;
   final firestore = FirebaseFirestore.instance;
 
-  Map<String, dynamic>? adminData;
+  // Map<String, dynamic>? adminData;
   void loginAsAdmin(String email, String password) async {
     emit(LoadingLoginAdminState());
     try {
@@ -27,7 +28,8 @@ class LoginCubit extends Cubit<LoginState> {
         var data =
             await firestore.collection("admins").doc(dataAuth.user?.uid).get();
         if (data.exists) {
-          adminData = {"email": email, "id": dataAuth.user!.uid};
+          // adminData = {"email": email, "id": dataAuth.user!.uid};
+          await SharedHelper.loginAsAdmin(email, dataAuth.user!.uid);
 
           emit(SuccessLoginAdminState());
         } else {
