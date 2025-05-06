@@ -35,14 +35,14 @@ class AskModel {
 
 class User {
   final String uid;
-  final String password;
+  final String image;
   final String phone;
   final String name;
   final String idNumber;
 
   User({
     required this.uid,
-    required this.password,
+    required this.image,
     required this.phone,
     required this.name,
     required this.idNumber,
@@ -51,7 +51,7 @@ class User {
   factory User.fromJson(Map<String, dynamic> json) {
     return User(
       uid: json['uid'],
-      password: json['password'],
+      image: json['image'],
       phone: json['phone'],
       name: json['name'],
       idNumber: json['idNumber'],
@@ -61,7 +61,7 @@ class User {
   Map<String, dynamic> toJson() {
     return {
       'uid': uid,
-      'password': password,
+      'image': image,
       'phone': phone,
       'name': name,
       'idNumber': idNumber,

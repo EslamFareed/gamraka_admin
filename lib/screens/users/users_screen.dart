@@ -22,8 +22,9 @@ class UsersScreen extends StatelessWidget {
               final item = list[index];
               return Card(
                 child: ListTile(
+                  leading: Image.network(item.image),
                   title: Text(
-                    "name : ${item.name}\nphone : ${item.phone}\nid number : ${item.idMumber}",
+                    "name : ${item.name}\nphone : ${item.phone}\nid number : ${item.idNumber}",
                   ),
                 ),
               );

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gamraka_admin/core/utils/app_colors.dart';
 import 'package:gamraka_admin/core/utils/app_functions.dart';
+import 'package:gamraka_admin/screens/sliders/add_slider_screen.dart';
 import 'package:gamraka_admin/screens/sliders/cubit/sliders_cubit.dart';
 
 class SlidersScreen extends StatelessWidget {
@@ -16,7 +17,7 @@ class SlidersScreen extends StatelessWidget {
         actions: [
           IconButton(
             onPressed: () {
-              SlidersCubit.get(context).add();
+              context.goToPage(AddSliderScreen());
             },
             icon: Icon(Icons.add),
           ),

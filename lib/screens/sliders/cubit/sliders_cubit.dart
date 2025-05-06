@@ -47,7 +47,7 @@ class SlidersCubit extends Cubit<SlidersState> {
 
   FirebaseStorage storage = FirebaseStorage.instance;
 
-  void add() async {
+  void add(String link) async {
     emit(LoadingSlidersState());
     try {
       var image = await ImagePicker().pickImage(source: ImageSource.gallery);
@@ -59,7 +59,10 @@ class SlidersCubit extends Cubit<SlidersState> {
         await imagesRef.putFile(file);
         String downloadURL = await imagesRef.getDownloadURL();
 
-        await firestore.collection("slider").add({"value": downloadURL});
+        await firestore.collection("slider").add({
+          "value": downloadURL,
+          "link": link,
+        });
 
         emit(SuccessSlidersState());
       } else {

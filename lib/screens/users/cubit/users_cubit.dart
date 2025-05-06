@@ -23,6 +23,7 @@ class UsersCubit extends Cubit<UsersState> {
       users = data.docs.map((e) => UserModel.fromJson(e.data(), e.id)).toList();
       emit(SuccessUsersState());
     } catch (e) {
+      print(e.toString());
       emit(ErrorUsersState());
     }
   }
