@@ -2,6 +2,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:gamraka_admin/screens/categories/cubit/categories_cubit.dart';
 import 'package:gamraka_admin/screens/countries/cubit/countries_cubit.dart';
+import 'package:gamraka_admin/screens/orders/cubit/orders_cubit.dart';
 import 'package:gamraka_admin/screens/routes/cubit/routes_cubit.dart';
 
 import 'firebase_options.dart';
@@ -40,6 +41,7 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (context) => CountriesCubit()),
         BlocProvider(create: (context) => RoutesCubit()),
         BlocProvider(create: (context) => CategoriesCubit()),
+        BlocProvider(create: (context) => OrdersCubit()),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
