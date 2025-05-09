@@ -26,10 +26,18 @@ class RoutesCubit extends Cubit<RoutesState> {
 
       routes = data.docs.map((e) => RouteModel.fromFirebase(e)).toList();
 
-      var dataCountries = await firestore.collection("countries").get();
+      var dataCountries =  await firestore
+              .collection("countries")
+              .where("name", isNotEqualTo: "Egypt")
+              .get();
 
       countries =
           dataCountries.docs.map((e) => CountryModel.fromFirebase(e)).toList();
+
+          var egyptData =
+          await firestore.collection("countries").doc("egypt").get();
+
+      egypt = CountryModel.fromDocFirebase(egyptData);
       emit(SuccessRoutesState());
     } catch (e) {
       emit(ErrorRoutesState());
@@ -37,6 +45,7 @@ class RoutesCubit extends Cubit<RoutesState> {
   }
 
   List<CountryModel> countries = [];
+  CountryModel? egypt;
 
   CountryModel? from;
   CountryModel? to;
@@ -47,7 +56,6 @@ class RoutesCubit extends Cubit<RoutesState> {
     emit(EndChooseCountryState());
   }
 
-  
   void selectTo(CountryModel? country) {
     emit(StartChooseCountryState());
     to = country;

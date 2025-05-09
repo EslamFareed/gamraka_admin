@@ -37,6 +37,10 @@ class OrderDetailsScreen extends StatelessWidget {
               const SizedBox(height: 16),
               _sectionTitle('Item Details'),
               _itemInfo(item),
+
+              const SizedBox(height: 16),
+              _sectionTitle('Verification Image'),
+              Image.network(item.verificationImage),
               const SizedBox(height: 16),
               _sectionTitle('Shipping Information'),
               _shippingRoute(item),

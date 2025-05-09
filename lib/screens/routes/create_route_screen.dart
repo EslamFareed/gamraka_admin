@@ -72,13 +72,21 @@ class CreateRouteScreen extends StatelessWidget {
                       onChanged: (value) {
                         RoutesCubit.get(context).selectTo(value);
                       },
-                      items:
-                          RoutesCubit.get(context).countries.map((e) {
-                            return DropdownMenuItem(
-                              value: e,
-                              child: Text(e.name ?? ""),
-                            );
-                          }).toList(),
+                      items: [
+                        DropdownMenuItem(
+                          value: RoutesCubit.get(context).egypt,
+                          child: Row(
+                            children: [
+                              Image.asset(
+                                "assets/icons/egypt_flag.png",
+                                width: 75,
+                                height: 40,
+                              ),
+                              Text("${RoutesCubit.get(context).egypt!.name}"),
+                            ],
+                          ),
+                        ),
+                      ],
                       decoration: InputDecoration(
                         hintText: "",
                         filled: true,
